@@ -1,0 +1,41 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+from sklearn.metrics import classification_report, roc_auc_score
+from sklearn.metrics import accuracy_score 
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import StandardScaler
+
+train_edges, test_edges = train_test_split(edgeL,test_size=0.3,random_state=16)
+out_dim = int(W_out.shape[1])from sklearn.linear_model import LogisticRegression
+
+in_dim = int(W_in.shape[1])
+train_x = np.zeros((len(train_edges), (out_dim + in_dim) * 2))
+train_y = np.zeros((len(train_edges), 1))
+
+for i, edge in enumerate(train_edges):
+    u = int(edge[0])
+    v = int(edge[1])
+    train_x[i, : out_dim] = W_out[u]
+    train_x[i, out_dim: out_dim + in_dim] = W_in[u]
+    train_x[i, out_dim + in_dim: out_dim * 2 + in_dim] = W_out[v]
+    train_x[i, out_dim * 2 + in_dim:] = W_in[v]
+    if int(edge[2]) > 0:
+        train_y[i] = 1
+    else:
+        train_y[i] = -1
+
+test_x = np.zeros((len(test_edges), (out_dim + in_dim) * 2))
+test_y = np.zeros((len(test_edges), 1))
+for i, edge in enumerate(test_edges):
+    u = int(edge[0])
+    v = int(edge[1])
+    test_x[i, : out_dim] = W_out[u]
+    test_x[i, out_dim: out_dim + in_dim] = W_in[u]
+    test_x[i, out_dim + in_dim: out_dim * 2 + in_dim] = W_out[v]
+    test_x[i, out_dim * 2 + in_dim:] = W_in[v]
+    if int(edge[2]) > 0:
+        test_y[i] = 1
+    else:
+        test_y[i] = -1
+
