@@ -1,0 +1,11 @@
+W_out = np.matrix(np.zeros((max_node_id + 1, dimensions * 2)), dtype=np.float32)
+W_in = np.matrix(np.zeros((max_node_id + 1, dimensions * 2)), dtype=np.float32)
+for i in range(max_node_id + 1):
+    W_out[i, : dimensions] = W_out_p[i]
+    W_out[i, dimensions: dimensions * 2] = W_out_n[i]
+    W_in[i, : dimensions] = W_in_p[i]
+    W_in[i, dimensions: dimensions * 2] = W_in_n[i]
+
+# Uncomment this to save the SLF vectors (Node Embeddings)
+#np.savetxt(data_path + 'SLF_Out', W_out)
+#np.savetxt(data_path + 'SLF_in', W_in)
