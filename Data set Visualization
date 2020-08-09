@@ -1,0 +1,24 @@
+import collections
+c = collections.Counter(signVal)
+c = sorted(c.items())
+
+sign_num=[i[0] for i in c]
+sign_freq=[i[1] for i in c]
+
+print(sign_freq)
+
+f, ax = plt.subplots()
+
+plt.bar(sign_num, sign_freq)
+plt.title("Signed links distribution", fontweight='bold')
+plt.xlabel("Sign values")
+plt.ylabel("No. of links")
+ax.set_xticks(range(-1, 2))
+
+for x,y in zip(sign_num,sign_freq):
+    label = "{:}".format(y)
+    plt.annotate(label, # this is the text
+                 (x,y), # this is the point to label
+                 textcoords="offset points", # how to position the text
+                 xytext=(0,2), # distance from text to points (x,y)
+                 ha='center') # horizontal alignment can be left, right or center
