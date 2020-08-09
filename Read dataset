@@ -1,0 +1,56 @@
+import networkx as nx
+import numpy as np
+import random as rd
+import time
+from tqdm import tqdm
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+data_source = '/content/soc-sign-epinions.txt'
+dimensions = 32
+learning_rate_init = 0.025
+noise_size = 5
+max_iterations = 10
+p0 = 0.001
+
+# Logistic regression function
+def fa(x):
+    if x > 15:
+        tmp = 1
+    else:
+        tmp = p0 * np.exp(x) / (1 + p0 * (np.exp(x) - 1))
+    return tmp
+
+G = nx.DiGraph()
+with open(data_path) as f:
+    for line in f:
+        line = line.strip().split()
+        #print(int(line[2]))
+        if int(line[2]) != 0:
+            G.add_edge(int(line[0]), int(line[1]), weight=int(line[2]))
+
+    
+max_node_id = max(G.nodes())
+undi_G = G.to_undirected()
+nodes = list(G.nodes())
+edges = np.array(G.edges())
+
+
+edgeL=[]
+with open(data_source) as f:
+  ss_links=f.read().splitlines()
+
+len(ss_links)
+
+edgeL1=[]
+edgeL2=[]
+signVal=[]
+for i in tqdm(ss_links):
+  edgeL1.append(int(i.split()[0]))
+  edgeL2.append(int(i.split()[1]))
+  signVal.append(int(i.split()[2]))
+
+ss_df=pd.DataFrame({"source": edgeL1, "destination": edgeL2, "sign":signVal})
+
+ss_df.head()
